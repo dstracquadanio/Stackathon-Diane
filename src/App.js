@@ -15,10 +15,7 @@ export default function App() {
   }, []);
   return (
     <div>
-      {todos.map((todo) => (
-        <h1>{todo.name}</h1>
-      ))}
-      <Todo />
+      <Todo todos={[...todos]} />
     </div>
   );
 }
