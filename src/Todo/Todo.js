@@ -9,8 +9,14 @@ export default function Todo(props) {
     firestore.collection("todos").onSnapshot((snapshot) => {
       let changes = snapshot.docChanges();
       changes.forEach((change) => {
-        if (change.type === "added")
-          setTodo((todos) => [...todos, change.doc.data()]);
+        if (change.type === "added") {
+          setTodo((todos) => [
+            ...todos,
+            { id: change.doc.id, data: change.doc.data() },
+          ]);
+        } else if (change.type === "removed") {
+          setTodo((todos) => todos.filter((todo) => todo.id !== change.doc.id));
+        }
       });
     });
   }, []);
@@ -25,13 +31,23 @@ export default function Todo(props) {
     setNewTodo("");
   }
 
-  console.log(todos);
+  function handleRemove(event) {
+    event.preventDefault();
+    firestore
+      .collection("todos")
+      .doc(event.target.value)
+      .delete();
+  }
+
   return (
     <div>
       {todos.map((todo) => {
         return (
-          <div>
-            <h1>{todo.name}</h1>
+          <div key={todo.id}>
+            {todo.data.name}
+            <button type="button" value={todo.id} onClick={handleRemove}>
+              x
+            </button>
           </div>
         );
       })}
