@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import firestore from "../firestore";
 
-export default function Todo(props) {
+export default function Todos(props) {
   const [todos, setTodo] = useState([]);
   const [newTodo, setNewTodo] = useState("");
 
@@ -25,10 +25,15 @@ export default function Todo(props) {
     setNewTodo(event.target.value);
   }
 
-  function handleSubmit(event) {
+  function handleClick(event) {
     event.preventDefault();
-    firestore.collection("todos").add({ name: newTodo });
+    if (!newTodo) return;
+    else firestore.collection("todos").add({ name: newTodo });
     setNewTodo("");
+  }
+
+  function handleKeyDown(event) {
+    if (event.keyCode === 13) handleClick(event);
   }
 
   function handleRemove(event) {
@@ -56,8 +61,12 @@ export default function Todo(props) {
         placeholder="add todo"
         value={newTodo}
         onChange={handleChange}
+        onKeyDown={handleKeyDown}
       />
-      <button type="button" onClick={handleSubmit}>
+      <button
+        type="submit"
+        className="btn-small bg-primary"
+        onClick={handleClick}>
         Add
       </button>
     </div>
