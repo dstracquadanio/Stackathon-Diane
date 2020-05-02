@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function Welcome(props) {
+export default function Welcome() {
+  const [message, setMessage] = useState("Hello, Dan.");
+
   return (
-    <div className="container">
-      <div className="text-center">
-        <h1>Welcome, Dan</h1>
+    <div className="whole-screen">
+      <div className="typewriter">
+        <h1>{message}</h1>
         <Link to="/todos">View Your Todos</Link>
       </div>
     </div>
