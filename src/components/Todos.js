@@ -45,30 +45,37 @@ export default function Todos(props) {
   }
 
   return (
-    <div>
-      {todos.map((todo) => {
-        return (
-          <div key={todo.id}>
-            {todo.data.name}
-            <button type="button" value={todo.id} onClick={handleRemove}>
-              x
-            </button>
-          </div>
-        );
-      })}
-      <input
-        type="text"
-        placeholder="add todo"
-        value={newTodo}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-      />
-      <button
-        type="submit"
-        className="btn-small bg-primary"
-        onClick={handleClick}>
-        Add
-      </button>
+    <div className="container">
+      <div className="text-center">
+        {todos.map((todo) => {
+          return (
+            <div key={todo.id} className="col-lg-3" onDoubleClick={() => true}>
+              {todo.data.name}
+              <button
+                type="button"
+                className="close"
+                onClick={handleRemove}
+                value={todo.id}>
+                &times;
+              </button>
+            </div>
+          );
+        })}
+        <input
+          type="text"
+          className="text-center"
+          placeholder="add todo"
+          value={newTodo}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+        />
+        <button
+          type="submit"
+          className="btn-small bg-primary"
+          onClick={handleClick}>
+          Add
+        </button>
+      </div>
     </div>
   );
 }
