@@ -25,13 +25,18 @@
   white-space: nowrap;
   margin: 0 auto;
   letter-spacing: 0.15em;
-  animation: typing 2.5s steps(40, end), blink-caret 0.75s step-end infinite;
+  animation: typing 2.5s steps(40, end), blink-caret 0.75s step-end infinite, stop-caret;
 }
 
 .response {
+  align-self: center;
   justify-content: center;
   padding: 10px;
   border: 0;
+}
+
+.redirect {
+  text-align: center;
 }
 
 /* The typing effect */
@@ -45,4 +50,10 @@
   from,
   to {border-color: transparent;}
   50% {border-color: orange;}
+}
+
+@keyframes stop-caret {
+  from,
+  to {border-color: transparent}
+  
 }

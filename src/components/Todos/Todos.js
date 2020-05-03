@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import firestore from "../../firestore";
+import { firestore } from "../../firestore";
+import axios from "axios";
 
 export default function Todos(props) {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState("");
   const [updatedTodo, setUpdatedTodo] = useState("");
-  const [doubleClick, setDoubleClick] = useState(false);
 
   useEffect(() => {
     firestore.collection("todos").onSnapshot((snapshot) => {
@@ -39,10 +39,14 @@ export default function Todos(props) {
     setUpdatedTodo(event.target.value);
   }
 
-  function handleClick(event) {
+  async function handleClick(event) {
     event.preventDefault();
     if (!newTodo) return;
-    else firestore.collection("todos").add({ name: newTodo });
+    else {
+      firestore.collection("todos").add({ name: newTodo });
+      // const res = await axios.get();
+      // console.log(res);
+    }
     setNewTodo("");
   }
 
@@ -59,7 +63,6 @@ export default function Todos(props) {
   }
 
   function handleDoubleClick(event) {
-    setDoubleClick(true);
     let clicked = event.target.textContent;
     clicked = clicked.slice(0, clicked.length - 1);
     let todo = todos.find((todo) => todo.data.name === clicked);

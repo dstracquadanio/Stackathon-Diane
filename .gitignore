@@ -3,6 +3,12 @@
 #googleAPI
 src/firestore.js
 
+#deepai
+/generatedText.js
+
+#serviceAccountKey
+/serviceAccountKey.json
+
 # dependencies
 /node_modules
 /.pnp
