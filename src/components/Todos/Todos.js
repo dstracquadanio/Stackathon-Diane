@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { firestore } from "../../firestore";
-import axios from "axios";
 
 export default function Todos(props) {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState("");
-  const [updatedTodo, setUpdatedTodo] = useState("");
 
   useEffect(() => {
     firestore.collection("todos").onSnapshot((snapshot) => {
@@ -20,11 +19,6 @@ export default function Todos(props) {
           setTodos((todos) =>
             todos.filter((todo) => todo.id !== change.doc.id)
           );
-        } else if (change.type === "modified") {
-          setTodos((todos) => {
-            todos = todos.filter((todo) => todo.id !== change.doc.id);
-            return [...todos, { id: change.doc.id, data: change.doc.data() }];
-          });
         }
       });
     });
@@ -35,38 +29,13 @@ export default function Todos(props) {
     setNewTodo(event.target.value);
   }
 
-  function handleEdit(event) {
-    setUpdatedTodo(event.target.value);
-  }
-
   async function handleClick(event) {
     event.preventDefault();
     if (!newTodo) return;
     else {
       firestore.collection("todos").add({ name: newTodo });
-      // const res = await axios.get();
-      // console.log(res);
     }
     setNewTodo("");
-  }
-
-  function handleUpdate(event, todo) {
-    if (event.keyCode === 13) {
-      firestore
-        .collection("todos")
-        .doc(todo.id)
-        .update({
-          name: updatedTodo,
-        });
-      todo.clicked = false;
-    }
-  }
-
-  function handleDoubleClick(event) {
-    let clicked = event.target.textContent;
-    clicked = clicked.slice(0, clicked.length - 1);
-    let todo = todos.find((todo) => todo.data.name === clicked);
-    todo.clicked = true;
   }
 
   function handleKeyDown(event) {
@@ -87,12 +56,8 @@ export default function Todos(props) {
       <div className="list-group">
         {todos.map((todo) => {
           return (
-            <div key={todo.id} className="list-group-item" onDoubleClick={handleDoubleClick}>
-              {
-                !todo.clicked ? todo.data.name : (
-                  <input type="text" value={updatedTodo} onChange={handleEdit} onKeyDown={(event) => handleUpdate(event, todo)} />
-                )
-              }
+            <div key={todo.id} className="list-group-item">
+              {todo.data.name}
               <button type="button" className="close" onClick={handleRemove} value={todo.id}>
                 &times;
               </button>
@@ -106,6 +71,7 @@ export default function Todos(props) {
         <button type="submit" className="btn-small bg-primary" onClick={handleClick}>
           Add
         </button>
+        <Link to="/">Back</Link>
       </div>
     </div>
   );

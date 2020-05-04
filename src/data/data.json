@@ -1,0 +1,87 @@
+[
+  {
+    "text": "Finish application",
+    "category": "todos"
+  },
+  {
+    "text": "Buy some milk",
+    "category": "todos"
+  },
+  {
+    "text": "Brian's party",
+    "category": "events"
+  },
+
+  {
+    "text": "Write down answers",
+    "category": "todos"
+  },
+  {
+    "text": "Board games with Bill",
+    "category": "events"
+  },
+  {
+    "text": "Final project due",
+    "category": "events"
+  },
+  {
+    "text": "Buy more coffee",
+    "category": "events"
+  },
+  {
+    "text": "Email Russ",
+    "category": "todos"
+  },
+  {
+    "text": "Buy more groceries",
+    "category": "todos"
+  },
+  {
+    "text": "Call mom",
+    "category": "todos"
+  },
+  {
+    "text": "Look at houses",
+    "category": "todos"
+  },
+  {
+    "text": "Go for a run",
+    "category": "todos"
+  },
+  {
+    "text": "Try on clothes",
+    "category": "todos"
+  },
+  {
+    "text": "Vacation starts",
+    "category": "events"
+  },
+  {
+    "text": "Bill's birthday",
+    "category": "events"
+  },
+  {
+    "text": "Lunch with Molly",
+    "category": "events"
+  },
+  {
+    "text": "Cook dinner for Molly",
+    "category": "todos"
+  },
+  {
+    "text": "Jam with Greg",
+    "category": "todos"
+  },
+  {
+    "text": "Mother's Day",
+    "category": "events"
+  },
+  {
+    "text": "Fullstack Graduation",
+    "category": "events"
+  },
+  {
+    "text": "Call Fr. Michael",
+    "category": "todos"
+  }
+]
