@@ -22,7 +22,7 @@ export default function Input(props) {
         setResponse("todos");
       } else {
         event.preventDefault();
-        $("#diane").toggleClass("form-control is-invalid text-center");
+        $(".error").text("I don't know what that is!");
         setError("yes");
       }
     }
@@ -39,17 +39,17 @@ export default function Input(props) {
   // prettier-ignore
   return (
     <div>
-          <div className="col align-self-center" onKeyDown={handleKeyDown}>
-            <label for="col-form-label" />
-            <input type="text" className="form-control text-center" placeholder="Diane, remind me..." 
-            value={response} onChange={handleChange} />
-            {response === "todos" ? <Redirect to="/todos" /> : ""}
-            <div className="valid-feedback">Should be good!</div>
-            <div className="invalid-feedback">I don't know that!</div>
-            <div>
-            {error ? <button className="btn btn-info" onClick={handleLearn}>Well, learn it!</button> : ""}
-          </div>
+      <div className="col align-self-center" onKeyDown={handleKeyDown}>
+        <label for="col-form-label" />
+        <input type="text" className="form-control text-center" placeholder="Diane, remind me..." 
+        value={response} onChange={handleChange} />
+          {response === "todos" ? <Redirect to="/todos" /> : ""}
+      <div/>
+      <div>
+        <div className='error' />
+        {error ? <button className="btn btn-danger" onClick={handleLearn}>Well, learn it!</button> : ""}
         </div>
+      </div>
     </div>
   );
 }
