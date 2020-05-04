@@ -53,7 +53,7 @@ export default function Todos(props) {
   // prettier-ignore
   return (
     <div className="whole-screen">
-      <div className="list-group">
+      <div className="list-group col-lg-4 text-center">
         {todos.map((todo) => {
           return (
             <div key={todo.id} className="list-group-item">
@@ -71,7 +71,7 @@ export default function Todos(props) {
         <button type="submit" className="btn-small bg-primary" onClick={handleClick}>
           Add
         </button>
-        <Link to="/">Back</Link>
+        <Link to="/" className="btn-small bg-secondary">Back</Link>
       </div>
     </div>
   );

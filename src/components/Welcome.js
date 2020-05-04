@@ -9,6 +9,7 @@ export default function Welcome() {
   const [response, setResponse] = useState("");
   const [error, setError] = useState(false);
 
+  console.log(firestore.collection.docs);
   useEffect(() => {
     const data = [
       {
@@ -35,7 +36,7 @@ export default function Welcome() {
     }));
 
     network.train(trainingData, {
-      iterations: 500,
+      iterations: 100,
       log: true,
     });
   }, []);
@@ -52,12 +53,6 @@ export default function Welcome() {
           .collection(output)
           .add({ name: event.target.value, category: output });
         setResponse("todos");
-        network.train([
-          {
-            input: event.target.value,
-            output: output,
-          },
-        ]);
       } else {
         event.preventDefault();
         $(".warning").text("I don't know that!");
@@ -67,8 +62,12 @@ export default function Welcome() {
   }
 
   function handleLearn(event) {
-    console.log(response);
-    // network.train([{ input: response, output: "todos" }]);
+    network.train([{ input: response, output: "todos" }], {
+      iterations: 500,
+      log: true,
+    });
+    // firestore.collection("todos").add({ name: response, category: "todos" });
+    // setResponse("todos");
   }
 
   return (
@@ -94,6 +93,7 @@ export default function Welcome() {
                         onChange={handleChange}
                         autoFocus
                       />
+                      {response === "todos" ? <Redirect to="/todos" /> : ""}
                       <div className="warning" />
                       <div>
                         {error ? (
@@ -106,9 +106,7 @@ export default function Welcome() {
                           ""
                         )}
                       </div>
-                      <div className="redirect text-center">
-                        {response === "todos" ? <Redirect to="/todos" /> : ""}
-                      </div>
+                      <div className="redirect text-center"></div>
                     </div>
                   </form>
                 </div>
