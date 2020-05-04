@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { firestore } from "../../firestore";
+import { firestore } from "../firestore";
 
 export default function Todos(props) {
   const [todos, setTodos] = useState([]);

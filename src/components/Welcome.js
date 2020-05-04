@@ -1,15 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
-import $ from "jquery";
+import React, { useEffect } from "react";
 import brain from "brain.js";
-import { firestore } from "../firestore";
+import Input from "./Input";
 const network = new brain.recurrent.LSTM();
 
 export default function Welcome() {
-  const [response, setResponse] = useState("");
-  const [error, setError] = useState(false);
-
-  console.log(firestore.collection.docs);
   useEffect(() => {
     const data = [
       {
@@ -41,35 +35,6 @@ export default function Welcome() {
     });
   }, []);
 
-  function handleChange(event) {
-    setResponse(event.target.value);
-  }
-
-  function handleKeyDown(event) {
-    if (event.keyCode === 13) {
-      const output = network.run(event.target.value);
-      if (output === "todos") {
-        firestore
-          .collection(output)
-          .add({ name: event.target.value, category: output });
-        setResponse("todos");
-      } else {
-        event.preventDefault();
-        $(".warning").text("I don't know that!");
-        setError(true);
-      }
-    }
-  }
-
-  function handleLearn(event) {
-    network.train([{ input: response, output: "todos" }], {
-      iterations: 500,
-      log: true,
-    });
-    // firestore.collection("todos").add({ name: response, category: "todos" });
-    // setResponse("todos");
-  }
-
   return (
     <div className="container-fluid">
       <div className="row no-gutter">
@@ -82,33 +47,7 @@ export default function Welcome() {
                   <h1 id="welcome" className="typewriter">
                     Hello, Dan.
                   </h1>
-                  <form>
-                    <div
-                      className="form-label-group col-lg-8"
-                      onKeyDown={handleKeyDown}>
-                      <div />
-                      <input
-                        type="text"
-                        value={response}
-                        onChange={handleChange}
-                        autoFocus
-                      />
-                      {response === "todos" ? <Redirect to="/todos" /> : ""}
-                      <div className="warning" />
-                      <div>
-                        {error ? (
-                          <button
-                            className="btn btn-info"
-                            onClick={handleLearn}>
-                            Well, learn it!
-                          </button>
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                      <div className="redirect text-center"></div>
-                    </div>
-                  </form>
+                  <Input network={network} />
                 </div>
               </div>
             </div>

@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Route } from "react-router-dom";
 import Welcome from "./components/Welcome";
-import Todos from "./components/Todos/Todos";
+import Todos from "./components/Todos";
 
 export default class Routes extends Component {
   render() {
